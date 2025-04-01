@@ -1,0 +1,8 @@
+version: "2.0"
+dependencies:
+  repositories:
+    - project: LangBledsoe/joda-time
+      dependencies: []  # joda-time has no dependencies
+    - project: LangBledsoe/spring-petclinic
+      dependencies:
+        - LangBledsoe/joda-time  # Ensure joda-time is built first
