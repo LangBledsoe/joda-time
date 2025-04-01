@@ -40,6 +40,6 @@ jobs:
       - name: Build Chain Execution
         uses: kiegroup/github-action-build-chain@v3.5.9
         with:
-          definition-file: https://raw.githubusercontent.com/LangBledsoe/joda-time/master/.ci/pull-request-config.yaml
+          definition-file: https://raw.githubusercontent.com/LangBledsoe/joda-time/main/.ci/pull-request-config.yaml
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
