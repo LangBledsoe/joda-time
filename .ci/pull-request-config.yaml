@@ -1,8 +1,18 @@
-version: "2.0"
-dependencies:
-  repositories:
-    - project: LangBledsoe/joda-time
-      dependencies: []  # joda-time has no dependencies
-    - project: LangBledsoe/spring-petclinic
-      dependencies:
-        - LangBledsoe/joda-time  # Ensure joda-time is built first
+version: "2.1"
+
+dependencies: 
+  - project: LangBledsoe/joda-time
+    dependencies:
+      - project: LangBledsoe/spring-petclinic
+        mapping:
+          dependencies:
+            - source: pom.xml
+              target: pom.xml
+
+default:
+  build-command:
+    current: mvn clean install
+    upstream: mvn clean install
+    downstream: mvn clean install
+  build-command-upstream: mvn clean install
+  build-command-downstream: mvn clean install
