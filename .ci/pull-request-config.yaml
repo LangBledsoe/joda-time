@@ -1,18 +1,21 @@
-version: "2.1"
+version: "2.3"
 
 dependencies: 
-  - project: LangBledsoe/joda-time
+  - project: LangBledsoe/spring-petclinic
     dependencies:
-      - project: LangBledsoe/spring-petclinic
+      - project: LangBledsoe/joda-time
         mapping:
           dependencies:
-            - source: pom.xml
-              target: pom.xml
+            default:
+              - source: main
+                target: master
+          dependant:
+            default:
+              - source: master
+                target: main
 
 default:
   build-command:
-    current: mvn clean install
-    upstream: mvn clean install
-    downstream: mvn clean install
-  build-command-upstream: mvn clean install
-  build-command-downstream: mvn clean install
+    current: mvn clean install -DskipTests=false
+    upstream: mvn clean install -DskipTests=false
+    downstream: mvn clean install -DskipTests=false
