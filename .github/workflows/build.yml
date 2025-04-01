@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Build Chain Execution
-        uses: ginxo/github-action-build-chain@v2
+        uses: ginxo/github-action-build-chain@BXMSPROD-1025
         with:
           definition-file: https://raw.githubusercontent.com/LangBledsoe/joda-time/master/.ci/pull-request-config.yaml
         env:
