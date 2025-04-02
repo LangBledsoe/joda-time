@@ -9,10 +9,6 @@ dependencies:
             default:
               - source: main
                 target: master
-          dependant:
-            default:
-              - source: master
-                target: main
 
 default:
   build-command:

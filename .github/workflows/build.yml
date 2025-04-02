@@ -37,9 +37,43 @@ jobs:
     needs: build  # This ensures spring-petclinic is built ONLY IF joda-time succeeds
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Debug Environment
+        run: |
+          echo "GitHub workspace: $GITHUB_WORKSPACE"
+          echo "GitHub ref: $GITHUB_REF"
+          echo "GitHub event name: $GITHUB_EVENT_NAME"
+          echo "Current branch: $(git branch --show-current)"
+          ls -la
+          cat .ci/pull-request-config.yaml
+
       - name: Build Chain Execution
         uses: kiegroup/github-action-build-chain@v3.5.9
         with:
           definition-file: https://raw.githubusercontent.com/LangBledsoe/joda-time/main/.ci/pull-request-config.yaml
+          logger-level: debug  # Enable debug logging
+          flow-type: full  # Use full flow type for more detailed execution
         env:
           GITHUB_TOKEN: "${{ secrets.LANGS_TOKEN }}"
+
+      - name: Debug Build Chain Output
+        if: always()  # Run even if build-chain fails
+        run: |
+          echo "Build Chain Logs (if available):"
+          find . -name "build-chain-*.log" -type f -exec cat {} \;
+
+      - name: Check Spring PetClinic Repository
+        if: always()
+        run: |
+          echo "Attempting to clone spring-petclinic..."
+          git clone https://github.com/LangBledsoe/spring-petclinic.git test-clone || echo "Clone failed"
+          if [ -d "test-clone" ]; then
+            echo "Clone successful"
+            cd test-clone
+            echo "Available branches:"
+            git branch -r
+          fi
