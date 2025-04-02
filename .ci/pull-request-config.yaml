@@ -12,6 +12,6 @@ dependencies:
 
 default:
   build-command:
-    current: mvn clean install -DskipTests=false
-    upstream: mvn clean install -DskipTests=false
-    downstream: mvn clean install -DskipTests=false
+    current: mvn clean deploy
+    upstream: mvn clean deploy
+    downstream: mvn clean deploy
